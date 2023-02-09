@@ -243,44 +243,46 @@ redisClient.on('ready', (r) => {
     logger.info('Redis READY', r);
 });
 
-// set up Mongo
-//function mongoConnect() {
-//    return new Promise((resolve, reject) => {
-//        var mongoURL = process.env.MONGO_URL || 'mongodb://mongodb:27017/users';
-//        mongoClient.connect(mongoURL, (error, client) => {
-//            if(error) {
-//                reject(error);
-//            } else {
-//                db = client.db('users');
-//                usersCollection = db.collection('users');
-//                ordersCollection = db.collection('orders');
-//                resolve('connected');
-//            }
-//        });
-//    });
-//}
-
+// set up Mongo : Use this when your mongo is on ec2 servers 
 function mongoConnect() {
-    return new Promise((resolve, reject) => {
-    var mongoURL = process.env.MONGO_URL || 'mongodb://username:password@mongodb:27017/catalogue?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false';
-    var client = mongoClient.connect(mongoURL,
-      {
-        // Mutable & Immutable
-        //tlsCAFile: `/home/roboshop/catalogue/rds-combined-ca-bundle.pem` //Specify the DocDB; cert
-        // Container
-        tlsCAFile: `/home/roboshop/rds-combined-ca-bundle.pem` //Specify the DocDB; cert
-    }, (error, client) => {
-    if(error) {
-        reject(error);
-    } else {
-        db = client.db('users');
-        usersCollection = db.collection('users');
-        ordersCollection = db.collection('orders');
-        resolve('connected');
-    }
-});
-});
+   return new Promise((resolve, reject) => {
+       var mongoURL = process.env.MONGO_URL || 'mongodb://mongodb:27017/users';
+       mongoClient.connect(mongoURL, (error, client) => {
+           if(error) {
+               reject(error);
+           } else {
+               db = client.db('users');
+               usersCollection = db.collection('users');
+               ordersCollection = db.collection('orders');
+               resolve('connected');
+           }
+       });
+   });
 }
+
+// Use this code only when your MongodDB is a PaS Solution on AWS : Document DB
+
+// function mongoConnect() {
+//     return new Promise((resolve, reject) => {
+//     var mongoURL = process.env.MONGO_URL || 'mongodb://username:password@mongodb:27017/catalogue?tls=true&replicaSet=rs0&readPreference=secondaryPreferred&retryWrites=false';
+//     var client = mongoClient.connect(mongoURL,
+//       {
+//         // Mutable & Immutable
+//         //tlsCAFile: `/home/roboshop/catalogue/rds-combined-ca-bundle.pem` //Specify the DocDB; cert
+//         // Container
+//         tlsCAFile: `/home/roboshop/rds-combined-ca-bundle.pem` //Specify the DocDB; cert
+//     }, (error, client) => {
+//     if(error) {
+//         reject(error);
+//     } else {
+//         db = client.db('users');
+//         usersCollection = db.collection('users');
+//         ordersCollection = db.collection('orders');
+//         resolve('connected');
+//     }
+// });
+// });
+// }
 
 function mongoLoop() {
     mongoConnect().then((r) => {
