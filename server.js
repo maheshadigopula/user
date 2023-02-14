@@ -260,7 +260,7 @@ function mongoConnect() {
    });
 }
 
-// Use this code only when your MongodDB is a PaS Solution on AWS : Document DB
+// Use this code only when your MongodDB is on PaS Solution on AWS : Document DB
 
 // function mongoConnect() {
 //     return new Promise((resolve, reject) => {
