@@ -17,9 +17,9 @@ spec:
     spec:
       containers:
       - name: user
-        image: 355449129696.dkr.ecr.us-east-1.amazonaws.com/user:4.0.1
+        image: 355449129696.dkr.ecr.us-east-1.amazonaws.com/user:4.0.2
         ports:
-        - containerPort: 80 
+        - containerPort: 8080
 --- 
 
 apiVersion: v1
