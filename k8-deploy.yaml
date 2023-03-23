@@ -55,7 +55,7 @@ kind: Ingress
 metadata:
   name: ingress-myservicea
 spec:
-  rules:
+- rules:
     http:
       paths:
       - path: "/"
