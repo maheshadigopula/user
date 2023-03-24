@@ -55,8 +55,8 @@ kind: Ingress
 metadata:
   name: ingress-myservicea
 spec:
-  - rules:
-      http:
+   rules:
+     - http:
         paths:
         - path: "/"
           pathType: Prefix
@@ -65,4 +65,24 @@ spec:
               name: user-svc
               port:
                 number: 8080
-    ingressClassName: nginx
+   ingressClassName: nginx
+
+--- 
+# --- 
+# apiVersion: networking.k8s.io/v1
+# kind: Ingress
+# metadata:
+#   name: ingress-myservicea
+# spec:
+#   rules:
+#   - host: catalogue.robos-shop.online
+#     http:
+#       paths:
+#       - path: "/"
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: catalogue-svc
+#             port:
+#               number: 8080
+#   ingressClassName: nginx 
