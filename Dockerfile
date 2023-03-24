@@ -1,9 +1,6 @@
-FROM        node:18 
-RUN         useradd roboshop 
-WORKDIR     /home/roboshop/ 
-RUN         ls -ltr /home 
-COPY        server.js   . 
-COPY        package.json .  
-RUN         npm install  
-RUN         curl -s -L -o /home/roboshop/rds-combined-ca-bundle.pem https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem          
-ENTRYPOINT  [ "node" , "server.js" ]
+FROM        node
+COPY        node_modules node_modules
+COPY        server.js server.js
+RUN         mkdir -p /home/roboshop/user/
+ADD         https://s3.amazonaws.com/rds-downloads/rds-combined-ca-bundle.pem  /home/roboshop/rds-combined-ca-bundle.pem
+ENTRYPOINT  ["node", "server.js"]
